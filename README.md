@@ -1,2 +1,3 @@
 # bdoffers-server
-nodejs based server created with Hapi.js
+nodejs server created with Hapi.js
+using GraphQL for serving queries instead of REST
