@@ -3,10 +3,12 @@ Hapi = require 'hapi'
 Inert = require 'inert'
 Datastore = require 'nedb'
 { graphqlHapi } = require 'graphql-server-hapi'
-myGraphQLSchema = require './schema.coffee'
+{ generateGraphqlSchema } = require './schema.coffee'
 
 db = {}
 db.offer = new Datastore {filename: './offers.db', autoload: true}
+
+{ myGraphQLSchema } = generateGraphqlSchema db
 
 server = new Hapi.Server()
 server.connection {
