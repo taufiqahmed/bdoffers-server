@@ -1,9 +1,7 @@
 
 Hapi = require 'hapi'
 Inert = require 'inert'
-{ graphqlHapi } = require 'graphql-server-hapi'
 
-myGraphQLSchema = require './schema.coffee'
 
 
 server = new Hapi.Server()
@@ -19,22 +17,9 @@ plugins = [
     register: Inert
     options: {}
   }
-  {
-    register: graphqlHapi
-    options: {
-      path: '/graphql'
-      graphqlOptions: {
-        schema: myGraphQLSchema
-      }
-    }
-  }
 ]
 
 server.register plugins, (err)-> throw err if err
-
-
-
-
 
 
 server.route {
