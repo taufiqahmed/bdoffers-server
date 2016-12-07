@@ -1,8 +1,7 @@
 
 Hapi = require 'hapi'
 Inert = require 'inert'
-
-
+db = require './db.coffee'
 
 server = new Hapi.Server()
 server.connection {
@@ -17,40 +16,12 @@ plugins = [
     register: Inert
     options: {}
   }
+  # Registering APIs module(plugin)
+  {register: require './api/get-offer.coffee'}
+  {register: require './api/add-offer.coffee'}
 ]
 
 server.register plugins, (err)-> throw err if err
-
-
-server.route {
-  method: 'GET'
-  path: '/offers/'
-  handler: (request, reply)->
-    db.offer.find {collection:'offers'}, (err, docList)=>
-      unless docList.length is 0
-        reply docList
-}
-
-server.route {
-  method: 'POST'
-  path: '/offers/'
-  handler: (request, reply)->
-    doc = request.payload
-    doc.collection = 'offers'
-    db.offer.insert doc, (err, newDoc)=>
-      if newDoc
-        return reply {id:newDoc._id, collection:newDoc.collection}
-}
-
-server.route {
-  method: 'GET'
-  path: '/offers/{id}'
-  handler: (request, reply)->
-    id = encodeURIComponent request.params.id
-    db.offer.findOne {_id:id}, (err, doc)=>
-      if doc
-        return reply doc
-}
 
 
 server.start (err)=>

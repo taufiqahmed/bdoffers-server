@@ -9,8 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "graphql": "^0.7.2",
-    "graphql-server-hapi": "^0.4.3",
     "hapi": "^15.2.0",
     "inert": "^4.0.2",
     "nedb": "^1.8.0"
