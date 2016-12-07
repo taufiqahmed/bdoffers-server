@@ -28,7 +28,7 @@ exports.register = (server, options, next)->
       method: 'GET'
       path: '/offers/brand={brand}'
       handler: (request, reply)->
-        id = encodeURIComponent request.params.id
+        brand = encodeURIComponent request.params.brand
         db.offer.find {brand: brand}, (err, docList)=>
           if docList.length is 0
             return reply err
