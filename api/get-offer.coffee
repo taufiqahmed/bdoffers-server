@@ -15,6 +15,20 @@ exports.register = (server, options, next)->
     }
     {
       method: 'GET'
+      path: '/offers/skip={skip}limit={limit}'
+      handler: (request, reply)->
+        {skip, limit} = request.params
+        db.offer.find {collection:'offers'}
+        .skip skip
+        .limit limit
+        .exec (err, docList)=>
+          if docList.length is 0
+            return reply err
+          else
+            reply docList
+    }
+    {
+      method: 'GET'
       path: '/offers/id={id}'
       handler: (request, reply)->
         id = encodeURIComponent request.params.id
